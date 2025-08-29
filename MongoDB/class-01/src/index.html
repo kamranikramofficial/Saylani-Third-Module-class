@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo API Test</title>
+</head>
+<body>
+  <h1>Todo API Test Buttons</h1>
+
+  <button onclick="createTodo()">Create Todo</button>
+  <button onclick="getTodos()">Get Todos</button>
+  <button onclick="updateTodo()">Update Todo</button>
+  <button onclick="deleteTodo()">Delete Todo</button>
+
+  <script>
+    const API = "http://localhost:3000/api/todos";
+
+    function createTodo() {
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: "New Todo" })
+      })
+      .then(res => res.text())
+      .then(data => console.log("Create:", data))
+      .catch(err => console.error(err));
+    }
+
+    function getTodos() {
+      fetch(API)
+        .then(res => res.text())
+        .then(data => console.log("Get:", data))
+        .catch(err => console.error(err));
+    }
+
+    function updateTodo() {
+      const id = prompt("Enter Todo ID to update:");
+      fetch(`${API}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: "Updated Todo", completed: true })
+      })
+      .then(res => res.text())
+      .then(data => console.log("Update:", data))
+      .catch(err => console.error(err));
+    }
+
+    function deleteTodo() {
+      const id = prompt("Enter Todo ID to delete:");
+      fetch(`${API}/${id}`, { method: "DELETE" })
+        .then(res => res.text())
+        .then(data => console.log("Delete:", data))
+        .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>
