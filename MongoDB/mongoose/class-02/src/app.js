@@ -27,7 +27,8 @@ app.use("/addUser", async (req, res) => {
   }
 });
 
-app.use("/updateUser/:id", async (req, res) => {
+
+app.use("/editUser/:id", async (req, res) => {
   const data = req.body;
   const { id } = req.params;
   try {
@@ -38,7 +39,7 @@ app.use("/updateUser/:id", async (req, res) => {
   } catch (error) {
     res.status(500).send("Error updating user");
   }
-});
+}); 
 
 app.use("/deleteUser/:id", async (req, res) => {
   const { id } = req.params;
