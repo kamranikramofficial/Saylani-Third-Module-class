@@ -6,18 +6,15 @@ const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
-// ----- Middlewares -----
-app.use(express.json()); // must come before routes
+app.use(express.json());
 app.use(cookieParser());
 
-// Simple health check
 app.get("/", (req, res) => res.send("API is running..."));
 
-// ----- Routes -----
-app.use("/auth", authRoutes);       // -> /auth/signup, /auth/login, etc.
+app.use("/auth", authRoutes);     
 app.use("/products", productRoutes);
 
-// ----- Connect to DB & start server -----
+
 connectDB()
   .then(() => {
     console.log("Database connected");
